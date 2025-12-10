@@ -20,7 +20,7 @@ def pv_mixed_crossover(parents, offspring_size, ga_instance):
     # num_offspring: how mant children to produce
     # num_genes: length of each chromosome
     num_offspring, num_genes = offspring_size
-    offspring = np.empty((num_offspring, num_genes), stype=float)
+    offspring = np.empty((num_offspring, num_genes), dtype=float)
 
     # Infer nnumber of zones
     n_zones = num_genes // 2
@@ -43,7 +43,7 @@ def pv_mixed_crossover(parents, offspring_size, ga_instance):
             # who is primary / secondary for this zone
             if i < mid:
                 primary_bin, primary_cap = p1_bin[i], p1_cap[i]
-                secondary_bin, decondary_cap = p2_bin[i], p2_cap[i]
+                secondary_bin, secondary_cap = p2_bin[i], p2_cap[i]
             else:
                 primary_bin, primary_cap = p2_bin[i], p2_cap[i]
                 secondary_bin, secondary_cap = p1_bin[i], p1_cap[i]
