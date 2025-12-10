@@ -1,8 +1,6 @@
 import numpy as np
-from .power_model import simulate_pv_generation
+from .power_model import (simulate_pv_generation, build_demand_weather_scenarios, N_ZONES)
 
-# Configuration (you can tune these)
-N_ZONES = 5
 
 # Cost per kW installed at each zone (dummy example)
 CAPEX_PER_KW = np.array([800, 850, 820, 900, 870], dtype=float)  # € per kW
@@ -20,8 +18,7 @@ LAMBDA_ZONES = 50.0   # €/zone, tune this
 #   scenario["demand"]  -> np.array shape (N_ZONES,)
 #   scenario["weather"] -> anything needed by simulate_pv_generation
 
-DEMAND_WEATHER_SCENARIOS = []  # fill this in your setup code
-
+DEMAND_WEATHER_SCENARIOS = build_demand_weather_scenarios(num_scenarios = 50)
 
 def fitness_func(ga_instance, solution, solution_idx):
     """
