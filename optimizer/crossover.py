@@ -68,9 +68,11 @@ def pv_mixed_crossover(parents, offspring_size, ga_instance):
                     child_cap[i] = 0.0
 
             # Case D - both 0: 0.0 kw (no PV)
-            if primary_bin == 0 and secondary_bin == 0:
+            else:
                 child_bin[i] = 0
                 child_cap[i] = 0.0
+
+        child_cap[child_bin == 0] = 0.0
 
         # Merge back into single chromosome
         offspring[k, :n_zones] = child_bin
