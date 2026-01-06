@@ -101,8 +101,7 @@ def build_wtga():
         # WTGA-style mutation:
         mutation_type="random",
         mutation_percent_genes=BASE_MUTATION_PERCENT,
-        random_mutation_min_val=-1.0,
-        random_mutation_max_val=1.0,
+
 
         # Selection & elitism
         parent_selection_type="sss",      # steady state selection
