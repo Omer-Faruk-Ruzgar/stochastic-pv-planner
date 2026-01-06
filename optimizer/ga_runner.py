@@ -19,9 +19,9 @@ MAX_CAPACITY_KW = np.array([50, 80, 150, 100, 60], dtype=float)
 # Base mutation settings (WTGA: adaptive mutation + diversity)
 BASE_MUTATION_PERCENT = 10        # % of genes mutated when diversity is ok
 HIGH_MUTATION_PERCENT = 30        # % of genes mutated when diversity is low
-DIVERSITY_THRESHOLD = 50       # std of fitness; ***tune this by experiments****
+DIVERSITY_THRESHOLD = 200       # standard deviation (std) of fitness; ***tune this by experiments****
 
-# -------------- Gene space / types ----------------
+# -------------- Gene space/types ----------------
 
 def build_gene_space_and_types():
     """Define allowed values for each gene (PyGAD gene_space / gene_type)."""
@@ -136,7 +136,7 @@ def build_baseline_ga():
         mutation_percent_genes=10,
 
         parent_selection_type="sss",     # roulette wheel
-        keep_parents=0,
+        keep_parents=4,
         keep_elitism=0,
         stop_criteria = ["saturate_30"],
         on_generation = None,
