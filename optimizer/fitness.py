@@ -61,6 +61,7 @@ def fitness_func(ga_instance, solution, solution_idx):
             # Net demand by positive: need import, negative: surplus
             net = np.sum(demand - generation)
 
+            # Energy optimization
             energy_import = max(net, 0.0)
             energy_surplus = max(-net, 0.0)
 

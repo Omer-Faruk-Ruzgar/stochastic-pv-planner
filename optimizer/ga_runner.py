@@ -44,7 +44,7 @@ def build_gene_space_and_types():
 
     return gene_space, gene_type
 
-# -------------Adaptive mutation callback (WTGA flavour)----------------
+# -------------Adaptive mutation callback (WTGA)----------------
 
 def on_generation(ga_instance: pygad.GA):
     """
@@ -57,7 +57,7 @@ def on_generation(ga_instance: pygad.GA):
 
     fitness_values = ga_instance.last_generation_fitness
 
-    # Safety: if not enough data, do nothing
+    # If not enough data, do nothing
     if fitness_values is None or len(fitness_values) < 2:
         return
 
@@ -65,7 +65,7 @@ def on_generation(ga_instance: pygad.GA):
 
     if diversity < DIVERSITY_THRESHOLD:
         # population is too similar -> increase mutation
-        ga_instance.mutation_percent_genes = HIGH_MUTATION_PERCENT
+        ga_instance.mutation_percent_genes =  HIGH_MUTATION_PERCENT
     else:
         # diversity is fine -> use base mutation rate
         ga_instance.mutation_percent_genes = BASE_MUTATION_PERCENT
