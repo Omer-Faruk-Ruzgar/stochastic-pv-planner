@@ -38,6 +38,7 @@ def fitness_func(ga_instance, solution, solution_idx):
 
     # No capacity if no PV
     capacity = np.where(apply_pv == 1, capacity, 0.0)
+    capacity = np.where(apply_pv == 1, np.maximum(capacity, MIN_CAPACITY_KW), 0.0)
 
     # ---- 1. CAPEX ----
     capex = np.sum(apply_pv * capacity * CAPEX_PER_KW)
