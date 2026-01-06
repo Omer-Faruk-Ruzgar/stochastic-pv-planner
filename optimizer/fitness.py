@@ -9,6 +9,8 @@ CAPEX_PER_KW = np.array([800, 850, 820, 900, 870], dtype=float)  # € per kW
 IMPORT_PRICE = 0.25   # €/kWh
 EXPORT_PRICE = 0.10   # €/kWh
 
+MIN_CAPACITY_KW = 10.0  # Capacity (kW) if there even if no PV installed
+
 HOURS = 168     # hours in a week 
 
 # Regularization weight for number of zones used
