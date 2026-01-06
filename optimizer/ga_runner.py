@@ -19,7 +19,7 @@ MAX_CAPACITY_KW = np.array([50, 80, 150, 100, 60], dtype=float)
 # Base mutation settings (WTGA: adaptive mutation + diversity)
 BASE_MUTATION_PERCENT = 10        # % of genes mutated when diversity is ok
 HIGH_MUTATION_PERCENT = 30        # % of genes mutated when diversity is low
-DIVERSITY_THRESHOLD = 1e-3        # std of fitness; ***tune this by experiments****
+DIVERSITY_THRESHOLD = 50       # std of fitness; ***tune this by experiments****
 
 # -------------- Gene space / types ----------------
 
