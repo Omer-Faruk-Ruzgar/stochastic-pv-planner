@@ -1,8 +1,14 @@
 import numpy as np
 import pygad
+import matplotlib.pyplot as plt
 
 from .crossover import pv_mixed_crossover
 from .fitness import fitness_func
+
+# For stagnation
+BEST_SO_FAR=-np.inf     # Comparison starting from negative infinite
+NO_IMPROVE=0
+STAGNATION_LIMIT=10     # Tune if too aggresive (to 15)
 
 # Global configuration
 
@@ -54,13 +60,14 @@ def on_generation(ga_instance: pygad.GA):
 
     This is a lightweight implementation of the 'adaptive mutation' idea **** CHANGE FOR VARIENCE ******
     """
+    global BEST_SO_FAR, NO_IMPROVE
 
     fitness_values = ga_instance.last_generation_fitness
 
     # If not enough data, do nothing
     if fitness_values is None or len(fitness_values) < 2:
         return
-
+    """
     diversity = np.std(fitness_values)
 
     if diversity < DIVERSITY_THRESHOLD:
@@ -69,12 +76,29 @@ def on_generation(ga_instance: pygad.GA):
     else:
         # diversity is fine -> use base mutation rate
         ga_instance.mutation_percent_genes = BASE_MUTATION_PERCENT
+    """
+    best_now = np.max(fitness_values)
+    diversity = np.std(fitness_values) 
+    
+    # ----- Stagnation tracking -----
+    if best_now <= BEST_SO_FAR + 1e-9:
+        NO_IMPROVE +=1
+    else:
+        BEST_SO_FAR = best_now
+        NO_IMPROVE = 0
 
+    # ---- adaptive mutation rule ---
+    if (NO_IMPROVE >= STAGNATION_LIMIT) or (diversity < DIVERSITY_THRESHOLD):
+        ga_instance.mutation_percent_genes = HIGH_MUTATION_PERCENT
+    else:
+        ga_instance.mutation_percent_genes = BASE_MUTATION_PERCENT
+    
     # Optional debug print ********* COMMENT IF YOU WANT ********
     print(
         f"Gen {ga_instance.generations_completed}: "
         f"best_f={np.max(fitness_values):.3f}, "
         f"std={diversity:.3e}, "
+        f"stagnation={NO_IMPROVE}, "
         f"mut%={ga_instance.mutation_percent_genes}"
     )
 
