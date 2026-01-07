@@ -14,7 +14,7 @@ BASE_CAPACITY_FACTOR = np.array([0.18, 0.16, 0.20, 0.17, 0.19], dtype=float)
 # Std dev of capacity factor noise per scenario
 CF_SIGMA = 0.04
 
-# Base demand per zone (kW or kWh for our chosen time window)
+# Base demand per zone (kW)
 BASE_DEMAND = np.array([25, 40, 30, 50, 35], dtype=float)
 
 # Demand variability per scenario
