@@ -10,12 +10,16 @@ CAPEX_PER_KW = np.array([800, 850, 820, 900, 870], dtype=float)  # € per kW
 IMPORT_PRICE = 0.25   # €/kWh
 EXPORT_PRICE = 0.10   # €/kWh
 
-MIN_CAPACITY_KW = 10.0  # Capacity (kW) if there even if no PV installed
+MIN_CAPACITY_KW = 10.0  # Minimum PV size (kW) when apply_pv[i] == 1
+
+# Pick a budget for force GA to decide where PV is most valuable (Here 200 kW)
+TOTAL_PV_BUDGET_KW = 200.0
+BUDGET_PENALTY = 1e5        # penalty € per kW over budget (*tune*)
 
 HOURS = 168     # hours in a week 
 
 # Regularization weight for number of zones used
-LAMBDA_ZONES = 0   # €/zone, **Tune**
+LAMBDA_ZONES = 1   # €/zone, **Tune**
 
 # Example: demand & weather scenarios
 # You should build these from data / AR(1) model, etc.
