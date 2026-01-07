@@ -191,12 +191,15 @@ def run_ga(use_wtga: bool = True, plot: bool = True):
 
     # Retrieve best solution
     solution, solution_fitness, solution_idx = ga.best_solution()
-    print("\n=== BEST SOLUTION ===")
+    print("\n===== BEST SOLUTION =====")
     print("Chromosome:", solution)
     print("Best fitness:", solution_fitness)
 
     best_apply_pv = solution[:N_ZONES].astype(int)
     best_capacity = solution[N_ZONES:]
+
+    # Masking capacities where applyPV == 0
+    best_capacity = np.where(best_apply_pv == 1, best_capacity, 0.0)
 
     print("applyPV:", best_apply_pv)
     print("capacity:", best_capacity)
@@ -204,6 +207,8 @@ def run_ga(use_wtga: bool = True, plot: bool = True):
     if plot:
         try:
             ga.plot_fitness()
+            plt.savefig("results_fitness.png", dpi = 200, bbox_inches = "tight")
+            plt.close()
         except Exception as e:
             print("Could not plot fitness curve:", e)
 
