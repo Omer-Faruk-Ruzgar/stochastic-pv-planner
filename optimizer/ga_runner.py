@@ -129,8 +129,8 @@ def build_wtga():
 
         # Selection & elitism
         parent_selection_type="sss",      # steady state selection
-        keep_parents=4,                   # retain some parents directly
-        keep_elitism=2,                   # top-2 elite kept each generation
+        keep_parents=2,                   # retain some parents directly
+        keep_elitism=1,                   # top-2 elite kept each generation
 
         # Stop if saturated for a while
         stop_criteria=["saturate_30"],
@@ -154,13 +154,13 @@ def build_baseline_ga():
         gene_space=gene_space,
         gene_type=gene_type,
 
-        fitness_func=fitness_func,
+        fitness_func= fitness_func,
         crossover_type= pv_mixed_crossover,   # standard PyGAD crossover
         mutation_type="random",
         mutation_percent_genes=10,
 
         parent_selection_type="sss",     # roulette wheel
-        keep_parents=4,
+        keep_parents=2,
         keep_elitism=0,
         stop_criteria = ["saturate_30"],
         on_generation = None,
