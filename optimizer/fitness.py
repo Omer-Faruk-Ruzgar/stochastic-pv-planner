@@ -45,8 +45,17 @@ def fitness_func(ga_instance, solution, solution_idx):
     capacity = np.where(apply_pv == 1, capacity, 0.0)
     capacity = np.where(apply_pv == 1, np.maximum(capacity, MIN_CAPACITY_KW), 0.0)
 
+    # How much the solution is trying to install
+    total_capacity = np.sum(capacity)       
+
+    # Much much the solution violates the global PV budget
+    over_budget = max(0.0, total_capacity - TOTAL_PV_BUDGET_KW)
+
+    penalty_budget = BUDGET_PENALTY * over_budget
+
     # ---- 1. CAPEX ----
     capex = np.sum(apply_pv * capacity * CAPEX_PER_KW)
+    capex_weekly = capex / CAPEX_WEEKS
 
     # ---- 2. Expected energy cost over scenarios ----
     if len(DEMAND_WEATHER_SCENARIOS) == 0:
@@ -80,7 +89,7 @@ def fitness_func(ga_instance, solution, solution_idx):
     penalty_zones = LAMBDA_ZONES * num_zones_used
 
     # ---- 4. Total cost and fitness ----
-    total_cost = capex + expected_energy_cost + penalty_zones
+    total_cost = capex_weekly + expected_energy_cost + penalty_zones + penalty_budget
 
     fitness = -total_cost   # GA maximizes fitness
     return fitness
