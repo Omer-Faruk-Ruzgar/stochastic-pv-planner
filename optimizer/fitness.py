@@ -1,6 +1,7 @@
 import numpy as np
 from .power_model import (simulate_pv_generation, build_demand_weather_scenarios, N_ZONES)
 
+CAPEX_WEEKS = 20 * 52   # 20 year lifetime of the model
 
 # Cost per kW installed at each zone (Change it for testing)
 CAPEX_PER_KW = np.array([800, 850, 820, 900, 870], dtype=float)  # € per kW
