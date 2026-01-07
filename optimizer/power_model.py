@@ -3,6 +3,8 @@ import numpy as np
 # Must be consistent with fitness/ga_runner
 N_ZONES = 5
 
+HOURS = 168 # Hours in a week
+
 # --- Basic PV/energy parameters ---
 
 # Capacity factor base per zone (how good each zone is on average)
@@ -50,7 +52,8 @@ def simulate_pv_generation(capacity_kw: np.ndarray, weather: dict) -> np.ndarray
     cf = np.clip(cf, 0.0, 0.35)
 
     # Energy = capacity * capacity_factor (for whatever time horizon we model)
-    generation = capacity_kw * cf
+    generation = capacity_kw * cf * HOURS
+    
     return generation
 
 
@@ -75,15 +78,17 @@ def build_demand_weather_scenarios(num_scenarios: int, rng: np.random.Generator 
 
     for _ in range(num_scenarios):
         # Demand with Gaussian noise
-        demand = BASE_DEMAND + rng.normal(loc=0.0, scale=DEMAND_SIGMA, size=N_ZONES)
-        demand = np.clip(demand, 0.0, None)
+        demand_kw = BASE_DEMAND + rng.normal(loc=0.0, scale=DEMAND_SIGMA, size=N_ZONES)
+        demand_kw = np.clip(demand_kw, 0.0, None)
+
+        demand_kwh = demand_kw * HOURS
 
         # Capacity factor multipliers, around 1.0 (sunny vs cloudy)
         cf_factor = 1.0 + rng.normal(loc=0.0, scale=CF_SIGMA, size=N_ZONES)
         cf_factor = np.clip(cf_factor, 0.5, 1.5)
 
         scen = {
-            "demand": demand,
+            "demand": demand_kwh,
             "weather": {"cf_factor": cf_factor}
         }
         scenarios.append(scen)
