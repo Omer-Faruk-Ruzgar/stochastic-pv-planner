@@ -2,7 +2,7 @@ import numpy as np
 from optimizer.ga_runner import run_ga
 
 def main():
-    np.random.seed(42)
+    np.random.seed(46)
 
     print("\n--- Baseline ---")
     run_ga(use_wtga = False, plot = True)
