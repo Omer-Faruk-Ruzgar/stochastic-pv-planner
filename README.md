@@ -5,7 +5,11 @@ This project optimizes photovoltaic (PV) placement and sizing  on a power distri
 ## Stucture 
 
 - `main.py`: entry point
-- `optimizer/`: core logic for GA and grid simulation
+- `optimizer/`
+  - `ga_runner.py` – GA configuration, baseline and WTGA implementations
+  - `crossover.py` – Custom crossover operator for PV siting and sizing
+  - `fitness.py` – Cost-based fitness function with stochastic scenarios
+  - `power_model.py` – Simplified PV generation and demand model
 - `requirements.txt`: reproducible environment
 
 ## To run
