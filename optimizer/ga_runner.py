@@ -208,7 +208,8 @@ def run_ga(use_wtga: bool = True, plot: bool = True):
     if plot:
         try:
             ga.plot_fitness()
-            plt.savefig("results_fitness.png", dpi = 200, bbox_inches = "tight")
+            fname = "fitness_wtga.png" if use_wtga else "fitness_baseline.png"
+            plt.savefig(fname, dpi = 200, bbox_inches = "tight")
             plt.close()
         except Exception as e:
             print("Could not plot fitness curve:", e)
