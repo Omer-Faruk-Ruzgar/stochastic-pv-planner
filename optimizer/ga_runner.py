@@ -6,6 +6,7 @@ from .crossover import pv_mixed_crossover
 from .fitness import fitness_func
 
 # For stagnation
+global BEST_SO_FAR, NO_IMPROVE
 BEST_SO_FAR=-np.inf     # Comparison starting from negative infinite
 NO_IMPROVE=0
 STAGNATION_LIMIT=10     # Tune if too aggresive (to 15)
