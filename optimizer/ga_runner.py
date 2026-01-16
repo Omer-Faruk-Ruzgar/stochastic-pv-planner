@@ -156,7 +156,7 @@ def build_baseline_ga():
         gene_type=gene_type,
 
         fitness_func= fitness_func,
-        crossover_type= single_point,   # standard PyGAD crossover
+        crossover_type= "single_point",   # standard PyGAD crossover
         mutation_type="random",
         mutation_percent_genes=10,
 
