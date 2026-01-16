@@ -21,7 +21,7 @@ NUM_GENES = 2 * N_ZONES
 # Fill this based on your simulation spec (max PV capacity per zone, in kW).
 # For now I put dummy values – you MUST replace them with your own numbers.
 MAX_CAPACITY_KW = np.array([50, 80, 150, 100, 60], dtype=float)
-
+MIN_CAPACITY_KW = 10.0
 # Base mutation settings (WTGA: adaptive mutation + diversity)
 BASE_MUTATION_PERCENT = 10        # % of genes mutated when diversity is ok
 HIGH_MUTATION_PERCENT = 30        # % of genes mutated when diversity is low
@@ -200,6 +200,7 @@ def run_ga(use_wtga: bool = True, plot: bool = True):
 
     # Masking capacities where applyPV == 0
     best_capacity = np.where(best_apply_pv == 1, best_capacity, 0.0)
+    best_capacity = np.where(best_apply_pv == 1, np.maximum(best_capacity, MIN_CAPACITY_KW), 0.0)
 
     print("applyPV:", best_apply_pv)
     print("capacity:", best_capacity)
