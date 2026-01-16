@@ -79,7 +79,7 @@ def fitness_func(ga_instance, solution, solution_idx):
             energy_import = max(net, 0.0)
             energy_surplus = max(-net, 0.0)
 
-            scenario_cost = (IMPORT_PRICE * energy_import - EXPORT_PRICE * energy_surplus) * HOURS
+            scenario_cost = (IMPORT_PRICE * energy_import - EXPORT_PRICE * energy_surplus)
             total_energy_cost += scenario_cost
 
         expected_energy_cost = total_energy_cost / len(DEMAND_WEATHER_SCENARIOS)
